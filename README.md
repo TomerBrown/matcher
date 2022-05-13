@@ -48,4 +48,5 @@
 * These tests include some:
    * Successful calls to the API and validates results.
    * Unsuccessful calls to the API, e.i. cases where the call should fail.
-* call python manage.py test to run all tests.
+* Additional testing were conducted using Postman App.
+* Call 'python manage.py test' to run all tests.
