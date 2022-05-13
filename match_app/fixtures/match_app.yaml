@@ -1,0 +1,131 @@
+-   model: match_app.skill
+    pk: 1
+    fields:
+        name: Python
+-   model: match_app.skill
+    pk: 2
+    fields:
+        name: Java
+-   model: match_app.skill
+    pk: 3
+    fields:
+        name: C++
+-   model: match_app.skill
+    pk: 4
+    fields:
+        name: C#
+-   model: match_app.skill
+    pk: 5
+    fields:
+        name: SQL
+-   model: match_app.skill
+    pk: 6
+    fields:
+        name: PowerPoint
+-   model: match_app.skill
+    pk: 7
+    fields:
+        name: Word
+-   model: match_app.skill
+    pk: 8
+    fields:
+        name: Excel
+-   model: match_app.job
+    pk: 1
+    fields:
+        title: Python Developer
+        skills:
+        - 1
+        - 5
+-   model: match_app.job
+    pk: 2
+    fields:
+        title: Software Engineer
+        skills:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+-   model: match_app.job
+    pk: 3
+    fields:
+        title: Finance
+        skills:
+        - 6
+        - 7
+        - 8
+-   model: match_app.job
+    pk: 4
+    fields:
+        title: God
+        skills:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+-   model: match_app.candidate
+    pk: 2
+    fields:
+        first_name: Tomer
+        last_name: Brown
+        title: 2
+        skills:
+        - 1
+        - 2
+        - 5
+-   model: match_app.candidate
+    pk: 3
+    fields:
+        first_name: Niv
+        last_name: Brown
+        title: 2
+        skills:
+        - 1
+        - 2
+        - 4
+        - 5
+-   model: match_app.candidate
+    pk: 4
+    fields:
+        first_name: David
+        last_name: Brown
+        title: 3
+        skills:
+        - 7
+-   model: match_app.candidate
+    pk: 5
+    fields:
+        first_name: Efrat
+        last_name: Brown
+        title: 2
+        skills:
+        - 2
+        - 4
+        - 5
+-   model: match_app.candidate
+    pk: 6
+    fields:
+        first_name: Tamir
+        last_name: Sagi
+        title: 2
+        skills:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+-   model: match_app.candidate
+    pk: 7
+    fields:
+        first_name: Johnathan
+        last_name: Shachar
+        title: 3
+        skills:
+        - 6
+        - 7
+        - 8
