@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.db.models import Count, Q
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Job, Skill, Candidate
 import json
 
 error_messages = {
     "invalid_req": 'The request is invalid. please check the format. '
-                   'should be GET request with json parameters as follows:{title:<title_name> , top: <int> (optional)}',
+                   'should be POST request with json parameters as follows:{title:<title_name> , top: <int> (optional)}',
     "invalid_job": 'There is no such job as {title} in the database. Please try a different job title'
 }
 
@@ -14,7 +16,7 @@ error_messages = {
 def is_valid_request(request: HttpRequest):
     """ Given a django HTTP Request returns whether it is valid request """
 
-    if request.method != 'GET':
+    if request.method != 'POST':
         return False
 
     req = json.loads(request.body.decode('utf-8'))
@@ -27,7 +29,7 @@ def is_valid_request(request: HttpRequest):
 
     return True
 
-
+@csrf_exempt
 def find_matches(request: HttpRequest):
     """ The main view that deals with the request and queries the database """
     # First check whether the request is valid (type and content of request)

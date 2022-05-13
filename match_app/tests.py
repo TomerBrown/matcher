@@ -19,8 +19,8 @@ class MatchUpTests(TestCase):
     fixtures = ['match_app/fixtures/match_app.yaml']
     client = Client()
 
-    def get_request(self, data: dict) -> JsonResponse:
-        return self.client.generic("GET", '/match/', data=json.dumps(data), content_type='application/json')
+    def post_request(self, data: dict) -> JsonResponse:
+        return self.client.post('/match/', data=json.dumps(data), content_type='application/json')
 
     def check_errors(self, res: JsonResponse, err_msg: str, job_name: str = ""):
         self.assertEqual(res.status_code, 400)
@@ -31,7 +31,7 @@ class MatchUpTests(TestCase):
 
     def test_job_does_not_exists(self):
         job_name = "Head of Fun"
-        res = self.get_request(get_data_dic(job_name))
+        res = self.post_request(get_data_dic(job_name))
         self.check_errors(res, 'invalid_job', job_name)
 
 
@@ -42,12 +42,12 @@ class MatchUpTests(TestCase):
 
     def test_invalid_parameter(self):
         data = {"Title": "Software Engineer"}
-        res = self.get_request(data)
+        res = self.post_request(data)
         self.check_errors(res, 'invalid_req')
 
     def test_legit_request_works_and_sorted(self):
         title = "Software Engineer"
-        res = self.get_request(get_data_dic(title))
+        res = self.post_request(get_data_dic(title))
         self.assertEqual(res.status_code, 200)
         top_candidates = res.json()["top candidates"]
 
@@ -62,24 +62,24 @@ class MatchUpTests(TestCase):
         title = "Software Engineer"
         num_engineers = len(Candidate.objects.filter(title__title=title))
         for top in range(1, 10):
-            res = self.get_request(get_data_dic(title , top))
+            res = self.post_request(get_data_dic(title, top))
             self.assertEqual(res.status_code, 200)
             self.assertEqual(len(res.json()["top candidates"]), min(top, num_engineers))
 
     def test_non_legit_request_with_change_top(self):
         title = "Software Engineer"
         for top in range(-5, 1):
-            res = self.get_request(get_data_dic(title,top))
+            res = self.post_request(get_data_dic(title, top))
             self.check_errors(res, 'invalid_req')
 
     def test_job_with_no_candidates(self):
-        res = self.get_request(get_data_dic("God"))
+        res = self.post_request(get_data_dic("God"))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(len(res.json()['top candidates']), 0)
 
     def test_another_job(self):
         title = "Finance"
-        res = self.get_request(get_data_dic(title))
+        res = self.post_request(get_data_dic(title))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(len(res.json()['top candidates']), len(Candidate.objects.filter(title__title=title)))
 
