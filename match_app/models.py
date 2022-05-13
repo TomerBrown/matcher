@@ -1,9 +1,12 @@
 from django.db import models
+import json
+
+MAX_LEN = 128
 
 
 class Skill (models.Model):
 
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=MAX_LEN)
     id = models.BigAutoField(primary_key=True)
 
     def __str__(self):
@@ -14,10 +17,21 @@ class Skill (models.Model):
             return False
         return self.name == other.name
 
+class Job (models.Model):
+
+    title = models.CharField(max_length=128)
+    skills = models.ManyToManyField(Skill)
+    id = models.BigAutoField(primary_key=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Candidate (models.Model):
 
-    first_name = models.CharField(max_length=128)
-    last_name = models.CharField(max_length=128)
+    first_name = models.CharField(max_length=MAX_LEN)
+    last_name = models.CharField(max_length=MAX_LEN)
+    title = models.ForeignKey(Job, on_delete=models.CASCADE)
     skills = models.ManyToManyField(Skill)
     id = models.BigAutoField(primary_key=True)
 
@@ -31,12 +45,12 @@ class Candidate (models.Model):
         skills = self.skills.all()
         return len(skills.intersection(required_skills))
 
+    def to_json(self, num_skills_required):
+        return {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'title': str(self.title),
+            'num_of_skills_required': num_skills_required
+        }
 
-class Job (models.Model):
 
-    title = models.CharField(max_length=128)
-    skills = models.ManyToManyField(Skill)
-    id = models.BigAutoField(primary_key=True)
-
-    def __str__(self):
-        return self.title
