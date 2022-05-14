@@ -14,7 +14,7 @@
     * **"title"** - an exact title to find matching to (e.g. "Software Engineer").
     * **"top"** - an optional argument for selecting the maximal candidates number to return. If none given the top 10 candidates are returned.
 
-* **For example** : the following parameters will return the top 5 Software Engineer in the database.
+* **For example** : the following parameters will return the top 2 Software Engineer in the database.
      * ```
         {
           "title": "Software Engineer",
