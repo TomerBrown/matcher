@@ -1,10 +1,18 @@
 # Candidate To Jobs Matching
 ## Home assignment for Gloat Interview
-
+## By Tomer Brown
 
 ### Setup:
-
-
+* Make sure docker and docker-compose are installed.
+* Run the following command:
+     * ```
+        docker-compose up
+        ```
+*note: it might take a couple of minutes to setup.  
+### Admin Interface:
+* An automated super user with the following parameters is initialized:
+    * Username : admin
+    * Password: admin 
 ### Basic API:
 #### Input:
 * **URL:** Request should be directed to the following suffix of the url:
@@ -23,6 +31,7 @@
         ```
 #### Output:
 * **Format**: Returns a json format with "top_candidates" entry with list of jsons representing candidates in the following format:
+meaning an ordered list (descending order) of qualified candidates for the job. The order is determined by the number of required skill for the job that the candidate have.
      * ```
         {
             "top candidates": [
@@ -41,6 +50,29 @@
             ]
         }
         ```
+#### Error Handling:
+ * **Examples for errors that might occur":**
+    * Wrong Method of request e.g. (GET instead of POST).
+    * "title" isn't in the parameters json.
+    * "top" isn't an int or is non positive number.
+    * The requested title isn't in the database.
+ * On all of the errors above, the response's status code would be 400
+ * For example:
+        
+    * The Request:
+           
+        *   ```
+            {
+                "title": "Head of Fun"
+            }
+            ```
+    * The Response (Assuming Head of Fun not in the DB):        
+        *   ```
+            {
+                "Error": "There is no such job as Head of Fun in the database. Please try a different job title"
+            }
+            ```
+
 
 ### Testing:
 
@@ -49,4 +81,7 @@
    * Successful calls to the API and validates results.
    * Unsuccessful calls to the API, e.i. cases where the call should fail.
 * Additional testing were conducted using Postman App.
-* Call 'python manage.py test' to run all tests.
+* To run all of the tests just run the following command:
+     * ```
+        docker-compose run web python3 manage.py test
+        ```

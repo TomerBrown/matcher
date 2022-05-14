@@ -1,0 +1,33 @@
+version: '3'
+services:
+  database:
+    image: mysql
+    restart: always
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=root #mysql
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=match_db
+  web:
+    build: .
+    environment:
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
+    command: >
+      bash -c "sleep 15
+      && python manage.py migrate
+      && python manage.py createsuperuser --noinput
+      || python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    depends_on:
+      - database
