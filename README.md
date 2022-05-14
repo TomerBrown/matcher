@@ -20,7 +20,7 @@
 * **Method**: Expects POST request only with json parameters.
 * **Parameters:** 
     * **"title"** - an exact title to find matching to (e.g. "Software Engineer").
-    * **"top"** - an optional argument for selecting the maximal candidates number to return. If none given the top 10 candidates are returned.
+    * **"top"** - an optional argument for selecting the maximal candidates number to return. If none given the top 10 candidates (or all of the qualified ones) are returned.
 
 * **For example** : the following parameters will return the top 2 Software Engineer in the database.
      * ```
@@ -31,7 +31,7 @@
         ```
 #### Output:
 * **Format**: Returns a json format with "top_candidates" entry with list of jsons representing candidates in the following format:
-meaning an ordered list (descending order) of qualified candidates for the job. The order is determined by the number of required skill for the job that the candidate have.
+meaning an ordered list (descending order) of qualified candidates for the job. The order is determined by the number of required skills for the job that the candidate have.
      * ```
         {
             "top candidates": [
