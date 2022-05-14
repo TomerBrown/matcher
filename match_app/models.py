@@ -6,7 +6,7 @@ MAX_LEN = 128
 
 class Skill (models.Model):
 
-    name = models.CharField(max_length=MAX_LEN)
+    name = models.CharField(max_length=MAX_LEN, unique=True)
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Skill (models.Model):
 
 class Job (models.Model):
 
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=128, unique=True)
     skills = models.ManyToManyField(Skill)
 
     def __str__(self):
