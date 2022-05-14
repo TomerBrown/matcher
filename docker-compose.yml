@@ -11,8 +11,6 @@ services:
       - 3306
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_USER=root #mysql
-      - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=match_db
   web:
     build: .
@@ -20,11 +18,15 @@ services:
       - DJANGO_SUPERUSER_PASSWORD=admin
       - DJANGO_SUPERUSER_USERNAME=admin
       - DJANGO_SUPERUSER_EMAIL=admin@admin.com
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_DATABASE=match_db
+      - DB_HOST=database
     command: >
-      bash -c "sleep 15
-      && python manage.py migrate
-      && python manage.py createsuperuser --noinput
-      || python manage.py runserver 0.0.0.0:8000"
+      bash -c "sleep 15;
+      python manage.py migrate;
+      python manage.py createsuperuser --noinput;
+      python manage.py runserver 0.0.0.0:8000;"
     ports:
       - "8000:8000"
     expose:

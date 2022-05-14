@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'matcher.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ('MYSQL_DATABASE'),
-        'USER': os.environ('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
-        'HOST': 'database',
-        'PORT': '3306'
+        'NAME': os.environ.get('DB_DATABASE', 'match_db'),
+        'HOST': os.environ.get('DB_HOST', 'database'),
+        'PORT': os.environ.get('DB_PORT', 3306),
+        'USER': os.environ.get('DB_USER', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', '')
     }
 }
 
