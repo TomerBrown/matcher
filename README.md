@@ -13,6 +13,7 @@
 * An automated super user with the following parameters is initialized:
     * Username : admin
     * Password: admin 
+* can be accessed via the url: ```http://127.0.0.1:8000/admin/```
 ### Basic API:
 #### Input:
 * **URL:** Request should be directed to the following suffix of the url:
